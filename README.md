@@ -1,152 +1,83 @@
-# TDK-2022
+# Autonomous Basketball and Bowling Vehicle
 
-This is a repository for TDK-2022 competition.
+An autonomous vehicle that fetches basketballs and bowling balls from ball racks, and launches them. This project is based on rules and requirements from 26th TDK Robocon - Autonomous Category.
+
+This project received an Honorable Mention in 26th TDK Robocon - Autonomous Category.
+
+Official rules of the competition here:
 
 [第 26 屆 TDK 盃全國大專校院創思設計與製作競賽 【自動組】競賽規則](https://tdk.stust.edu.tw/upload/news/files/26th%20TDK%E7%9B%83%E8%87%AA%E5%8B%95%E7%B5%84%E7%AB%B6%E8%B3%BD%E8%A6%8F%E5%89%87.pdf)
 
-## meeting notes
+## Overview
 
-You can find meeting notes here:
+- Built a Mecanum wheel chassis with projectile launching mechanism
+- Developed autonomous navigation using lidar and Hector SLAM algorithm
+- Used OpenCV-based image recognition system to detect the correct goal
 
-- [iTron - HackMD](https://hackmd.io/team/iTron-robotics-team?nav=overview)
-- [進度管理 - google drive](https://docs.google.com/document/d/12E3JFJpEgetsssrI30uEMVVPmBOBpHAHNQxU621Bsxs/edit?usp=sharing)
-- [週開會內容 - google drive](https://docs.google.com/document/d/13ywQ8dXawGymXWrEQWETpR7VzdLqom0b-slnPKrO5q8/edit?usp=sharing)
+## Demo
 
-## Node Graph
+<img src="pics/vehicle-image.png" alt="Cover" width="50%">
 
+- [Competition Livestream (4-5 min)](https://www.youtube.com/live/0pQ_8PcyLhU?si=xLWl63fD6gH7JzC8&t=3719): Our vehicle on the right pane
+  - [Highlight (1 min)](https://www.youtube.com/live/0pQ_8PcyLhU?si=w4PLQcwNdSIjKqLF&t=3791)
+
+## Technical Highlights
+
+- **Control System**:
+  - Arduino for basic control logic
+  - Intel NUC computer for navigation and image recognition
+- **ROS**:
+  - Node graph (Each box represents a node):
 ![](pics/Node-Graph.drawio.png)
+    - `dot_recognize`: Braille sign recognition
+    - `alphabet_recognize`: Optical character recognition using OpenCV
+    - `color_detect`: Color detection of the ball
+    - `main_control`: Task scheduling
+    - `navigation`: Navigation using hector slam
+    - `upper_mechanism`: An interface to send commands to arduino (responsible for the control of the upper part)
+    - `motor_control`: An interface to send commands to arduino (responsible for the control of the chassis)
+- **Circuit**:
+  - Circuit Diagram drawn using EasyEDA
+  - ![Circuit Diagram](pics/circuit-diagram.png)
 
-## Flowchart
+## Gallery
 
-```mermaid
-graph TD
-	%% point reached
-    A(["A點(起點)"])
-    A1(["A點(起點)"])
-    I[/"I點(籃球取球點)"/]
-    I1[/"I點(籃球取球點)"/]
-    G[/"G點(籃球投籃點)"/]
-    G1[/"G點(籃球投籃點)"/]
-    J[/"J點(保齡球取球點)"/]
-    J1[/"J點(保齡球取球點)"/]
-    H[/"H點(保齡球投球點)"/]
-    H1[/"H點(保齡球投球點)"/]
-	
-	%% main ask navigation server to move
-	main2navI["丟 I 點座標到 navigation"]
-	main2navG["丟 G 點座標到 navigation"]
-	main2navJ["丟 J 點座標到 navigation"]
-	main2navH["丟 H 點座標到 navigation"]
-	adjustPos["丟修正geometry到navigation"]
-	adjustPos2["丟修正geometry到navigation"]
-	adjustPos3["丟修正geometry到navigation"]
-	adjustPos4["丟修正geometry到navigation"]
-	
-	%% publish stages
-    mainPubStage1["publish stage 1"]
-	mainPubStage2["publish stage 2"]
-	mainPubStage3["publish stage 3"]
-	mainPubStage4["publish stage 4"]
-	
-	%% read from distance from camera node
-    disFromCam[/"讀取distance_from_camera"/]
-    disFromCam2[/"讀取distance_from_camera"/]
-    disFromCam3[/"讀取distance_from_camera"/]
-    disFromCam4[/"讀取distance_from_camera"/]
-	
-	%% determine whether distance is right or not
-    disCheck{"距離是否正確?"}
-    disCheck2{"距離是否正確?"}
-    disCheck3{"距離是否正確?"}
-    disCheck4{"距離是否正確?"}
-	
-	%% get ball, throw ball movement
-    getBasketball["取籃球(三次) (TODO: 未決定node)"]
-	throwBasketball["投籃球(三次) (TODO: 未決定node)"]
-	getBowling["取保齡球(三次) (TODO: 未決定node)"]
-	throwBowling["丟保齡球(三次) (TODO: 未決定node)"]
+<table>
+  <tr>
+	<td>Chassis</td>
+	<td>Ball storage mechanism</td>
+  </tr>
+  <tr>
+    <td><img src="pics/chassis.png" alt="Chassis" width="250"/></td>
+    <td><img src="pics/ball-storage-mechanism.png" alt="Ball storage mechanism" width="250"/></td>
+  </tr>
+  <tr>
+	<td>Ball fetching part</td>
+	<td>Customized circuit board</td>
+  </tr>
+  <tr>
+    <td><img src="pics/ball-fetching-part.png" alt="Ball fetching part" width="250"/></td>
+	<td><img src="pics/customized-circuit-board.png" alt="Customized circuit board" width="250"/></td>
+  </tr>
+  <tr>
+	<td>Completed circuit board</td>
+	<td>Upper mechanism circuit</td>
+  </tr>
+  <tr>
+    <td><img src="pics/completed-circuit-board.png" alt="Completed circuit board" width="250"/></td>
+	<td><img src="pics/upper-mechanism-circuit.png" alt="Upper mechanism circuit" width="250"/></td>
+  </tr>
+</table>
 
-	%% --------------------------------------
+## Authors
 
-    A --"stage 1"--> 
-	I --"stage 2"-->
-    G --"stage 3"-->
-    J --"stage 4"-->
-	H
-	
-	%% ---------------------------------------
-	
-    subgraph "main_control node"
-	
-	%% stage 1 起點到取球點並取球
-    A1    			--"進入 stage 1"-->
-    mainPubStage1 	-->
-    main2navI 		-->
-    I1 				-->
-    disFromCam
-	disFromCam 		-->
-	disCheck 		--"Yes" --> 
-	getBasketball
-	disCheck 		--"No" -->
-	adjustPos 		--> 
-	disFromCam
-	
-	%% stage 2 到達投籃點並投籃
-	getBasketball 	-- "進入 stage 2" -->
-	mainPubStage2 	-->
-	main2navG 		-->
-	G1 				-->
-	disFromCam2 	-->
-	disCheck2 		--"Yes"--> 
-	throwBasketball
-	disCheck2 		--"No"-->
-	adjustPos2 		--> 
-	disFromCam2
-	
-	%% stage 3 到達取保齡球點並取保齡球
-	throwBasketball --"進入 stage 3"-->
-	mainPubStage3 	-->
-	main2navJ 		-->
-	J1 				-->
-	disFromCam3 	-->
-	disCheck3		--"Yes"-->
-	getBowling
-	disCheck3 		--"No"-->
-	adjustPos3		-->
-	disFromCam3
-	
-	%% stage 4 到達投保齡球點並丟出保齡球
-	getBowling 		--"進入 stage 4"-->
-	mainPubStage4 	-->
-	main2navH		-->
-	H1				-->
-	disFromCam4		-->
-	disCheck4		--"Yes"-->
-	throwBowling
-	disCheck4		--"No"-->
-	adjustPos4		-->
-	disFromCam4
-	
-    end
-```
+| Student (Dept./Year)                                        | Responsibilities                                                                                                                              |     Allocation (%) |
+| ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------: |
+| Ou, O Wei — Mechanical Engineering, Junior     | Chassis navigation; HectorSLAM; monocular camera distance-estimation model implementation; PID tuning; report writing & consolidation | 25.1% |
+| Lin, O You — Mechanical Engineering, Sophomore    | Alphabet recognition; monocular distance-estimation model implementation; fixing scanning skew/tilt issues; color recognition             | 22.4% |
+| Lin, O Qi — Mechanical Engineering, Junior     | Chassis control (incl. communication); motor log visualization; PID tuning; report writing & consolidation                                | 20.0% |
+| Wu, Dian-Mou — Mechanical Engineering, Sophomore    | Alphabet recognition; task controller; report writing & consolidation                                                                         | 20.0% |
+| You, O Qi — Mechanical Engineering, Junior      | Braille recognition                                                                                                                       |  7.8% |
+| Wang, O Zhe — Mechanical Engineering, Sophomore | Alphabet recognition; Braille recognition                                                                                                 |  4.7% |
 
-## Navigation
-
-```
-roslaunch motor_communicate base.launch
-```
-
-## How to connect
-
-1. same wifi
-
-find the local network information
-```bash
-ifconfig
-```
-
-find local devices
-
-```bash
-fping -r 1 -agq [your ip lower bound] [your ip upper bound]
-```
+> Some members' names not fully displayed due to privacy reasons.
