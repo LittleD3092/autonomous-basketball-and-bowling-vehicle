@@ -2,7 +2,7 @@
 
 An autonomous vehicle that fetches basketballs and bowling balls from ball racks, and launches them. This project is based on rules and requirements from 26th TDK Robocon - Autonomous Category.
 
-This project received an Honorable Mention in 26th TDK Robocon - Autonomous Category.
+This project received an **Honorable Mention** in *26th TDK Robocon - Autonomous Category*.
 
 Official rules of the competition here:
 
@@ -76,7 +76,7 @@ Official rules of the competition here:
 | Ou, O Wei — Mechanical Engineering, Junior     | Chassis navigation; HectorSLAM; monocular camera distance-estimation model implementation; PID tuning; report writing & consolidation | 25.1% |
 | Lin, O You — Mechanical Engineering, Sophomore    | Alphabet recognition; monocular distance-estimation model implementation; fixing scanning skew/tilt issues; color recognition             | 22.4% |
 | Lin, O Qi — Mechanical Engineering, Junior     | Chassis control (incl. communication); motor log visualization; PID tuning; report writing & consolidation                                | 20.0% |
-| Wu, Dian-Mou — Mechanical Engineering, Sophomore    | Alphabet recognition; task controller; report writing & consolidation                                                                         | 20.0% |
+| **Wu, Dian-Mou — Mechanical Engineering, Sophomore**    | **Alphabet recognition; task controller; report writing & consolidation**                                                                         | **20.0%** |
 | You, O Qi — Mechanical Engineering, Junior      | Braille recognition                                                                                                                       |  7.8% |
 | Wang, O Zhe — Mechanical Engineering, Sophomore | Alphabet recognition; Braille recognition                                                                                                 |  4.7% |
 
